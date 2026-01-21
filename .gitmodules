@@ -1,0 +1,3 @@
+[submodule "third_party/libds"]
+	path = third_party/libds
+	url = https://github.com/franklinMN/c-ds-lib/
