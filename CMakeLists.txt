@@ -11,6 +11,13 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_subdirectory(third_party/libds)
 
+install(
+    TARGETS ds
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
 add_library(ccache
     src/ccache.c
 )
@@ -57,7 +64,7 @@ target_include_directories(ccache
 )
 
 target_link_libraries(ccache
-    PRIVATE
+    PUBLIC
         libds
 )
 
