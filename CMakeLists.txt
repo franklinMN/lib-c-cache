@@ -15,6 +15,39 @@ add_library(ccache
     src/ccache.c
 )
 
+include(CMakePackageConfigHelpers)
+
+install(
+    TARGETS ccache
+    EXPORT ccacheTargets
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(
+    DIRECTORY include/
+    DESTINATION include
+)
+
+install(
+    EXPORT ccacheTargets
+    FILE ccacheTargets.cmake
+    NAMESPACE ccache::
+    DESTINATION lib/cmake/ccache
+)
+
+configure_package_config_file(
+    cmake/ccacheConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/ccacheConfig.cmake
+    INSTALL_DESTINATION lib/cmake/ccache
+)
+
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/ccacheConfig.cmake
+    DESTINATION lib/cmake/ccache
+)
+
 target_include_directories(ccache
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -27,3 +60,4 @@ target_link_libraries(ccache
     PRIVATE
         libds
 )
+
